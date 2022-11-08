@@ -1,0 +1,271 @@
+//post method user register HIDE PASSWORD start......................................
+// userrouter.post("/user/post",async(req,res,next)=>{
+
+//     let user = await User.findOne({email:req.body.email})
+
+//     if(user){
+
+//     return res.status(404).send('usernot found in database')
+    
+// }
+
+//     user = new User(_.pick(req.body,['name','email','password']))
+  
+//     await user.save()
+
+//     res.status(201).send(_.pick(user,['_id','name','email']))
+//   })
+//post method user register HIDE PASSWORD end......................................
+
+
+//post method user register HIDE PASSWORD and BCRYPT PASSWORD START......................................
+// userrouter.post("/register",async(req,res,next)=>{
+
+//     let user = await User.findOne({email:req.body.email})
+ 
+//     if(user){
+
+//     return res.status(404).send('user already exists in database')
+    
+// }  else{
+    
+//     user = new User(_.pick(req.body,['name','email','password','isAdmin']))
+  
+//     const saltRounds =10
+
+//     const salt = await bcrypt.genSalt(saltRounds);
+
+//     user.password = await bcrypt.hash(user.password,saltRounds);
+
+//     await user.save()
+
+//     const token= user.generateTokens()
+
+
+//     res.header('x-auth-token',token).send(_.pick(user,['_id','name','email','isAdmin']))
+// }
+
+//   })
+//post method user register HIDE PASSWORD and BCRYPT PASSWORD end......................................
+
+
+
+
+
+//JWT TOKEN WITHOUT BEARER WRITE
+
+// const checkauth=(req,res,next)=>{
+
+//     const token = req.header('Authorization')
+
+//     if(!token){
+
+//         return res.status(401).send({error:'only authorised person'})
+//     }
+
+//     try{
+
+//         const decodeToken = Jwt.verify(token,'privatekey')
+
+//         req.user = decodeToken
+
+//         next()
+
+//     }catch(e){
+
+//         return res.status(401).send({error:'wrong token'})
+//     }
+
+// }
+
+
+//OLD POST SEE DATA ALL USER
+// router.post("/post",checkauth,async(req,res,next)=>{
+
+//     const { name, age, city,salary } = req.body;
+
+//     if(!name || !age || !city || !salary)
+//     {
+//         res.status(400).send({error:"plz fill the data"})
+//     } else{
+
+//         const user = new Employ(req.body)
+      
+//         user.save().then(()=>{
+    
+//         res.status(201).send(user)
+    
+//         }).catch((err)=>{
+      
+//         res.status(400).send(err)
+    
+//         }) 
+//     }
+//   })
+
+
+//OLD GET SEE DATA ALL USER
+
+// router.get("/get",checkauth,async(req,res)=>{
+
+//     try{
+
+//     const get= await Employ.find()
+
+//     res.status(201).send(get)
+//     }
+//     catch(err)
+//     {
+//     res.status(400).send(err)
+//     }
+// })
+
+
+
+//ADMIN JWT MIDDLEWARE
+
+// import mongoose from 'mongoose'
+// import User from '../models/user.js'
+
+// const adminauth=(req,res,next)=>{
+
+//     //const isAdmin = req.user.data;
+    
+//      const isAdmin = req.user.isAdmin;
+//     console.log(isAdmin);
+//     if(!req.user.isAdmin){
+
+//         return res.status(403).send({error:'you are not admin user'})
+//     }
+//     else{
+//         next()
+//     }
+// }
+// export default adminauth;
+
+
+//POST ROUTE WITHOUT IMAGE PERFECT WALLA
+
+// router.post("/post",checkauth,async(req,res,next)=>{
+
+//     const {  name, age ,city, salary } = req.body;
+
+//     if(!name || !age || !city || !salary)
+//     {
+//         res.status(400).send({error:"please fill the field proper"})
+//     } else{
+
+//         req.user.password= undefined          // password ko show nhi krwane ke ley
+//         req.user.email= undefined , req.user.gender= undefined ,req.user.address= undefined , req.user.cpassword= undefined , req.user.token= undefined , req.user.phone= undefined ,req.user.name= undefined , req.user.token= undefined ,   req.user.tokens= undefined
+//         const user = new Employ({
+                                          
+//             name,age,city,salary,postedby:req.user         //req.user me user login ki details hai
+
+//         })
+//         user.save().then(()=>{
+    
+//         res.status(200).send(user)
+    
+//         }).catch((err)=>{
+      
+//         res.status(400).send(err)
+    
+//         }) 
+//     }
+//   })
+
+
+
+//BLOCK AND UNBLOCKING
+
+// adminrouter.put("/block/:id",[checkauth,adminauth],async(req,res)=>{
+//     try {
+      
+//       const _id= req.params.id
+//       // console.log(_id);
+//       const isVarified= req.body.isVarified
+  
+//       const getid= await User.findByIdAndUpdate(_id,req.body.isVarified,{
+//         new:true
+//       })
+//       // console.log(getid);
+  
+//       const data= {
+//         isVarified:0
+//       }
+//   if(getid.isVarified==1){
+//     //  user.isVarified=1;
+  
+//     const data= {
+//       isVarified:0
+//     }
+//      const get= await User.findByIdAndUpdate(getid._id,data)
+//      res.status(200).send({success:"😭 block the user"})
+//     //  console.log(get);
+//   } else{
+//     const da1ta= {
+//       isVarified:1
+//     }
+//     const getid1= await User.findByIdAndUpdate(getid._id,da1ta)
+//     // console.log(getid1);
+//     res.status(200).send({success:"🤗 unblock the user"})
+//   }
+//     } catch (error) {
+//       res.status(400).send("error")
+//     }
+//   })
+
+
+//INDIVIDUAL BLOCK
+
+// adminrouter.put("/block/:id",[checkauth,adminauth],async(req,res)=>{
+
+//     const _id= req.params.id
+//     // const _id= req.params.id
+//     const isVarified= req.body.isVarified
+  
+//     const getid= await User.findByIdAndUpdate(_id,req.body.isVarified,{
+//       new:true
+//     })
+//     const data= {
+//       isVarified:1
+//     }
+  
+//   if(getid.isVarified==1){
+  
+//   const data= {
+//     isVarified:0
+//   }
+//    const get= await User.findByIdAndUpdate(getid._id,data)
+   
+//    res.status(400).send({message:"block the user"})
+//     sentverifymail(req.body.email);
+  
+//   } else{
+//   res.status(400).send({message:"user already blocked"})
+//   }
+//   })
+
+
+
+
+
+// {
+//     "version":2,
+//     "builds":[
+
+//         {
+//             "src":"./app.js",
+//             "use":"@vercel/node"
+//         }
+    
+//     ],
+//     "routes":[
+
+//         {
+//             "src":"/(.*)",
+//             "dest":"/"
+//         }
+//     ]
+
+// }
