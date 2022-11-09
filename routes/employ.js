@@ -177,7 +177,7 @@ router.get("/get/:id",checkauth,async(req,res)=>{
 
   const getid= await Employ.findById(_id)
 
-  res.status(200).send(getid)
+  res.status(200).send([getid])
 }
 }
   catch(err)
