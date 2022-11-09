@@ -6,7 +6,7 @@ import router from "./routes/employ.js"
 import userrouter from "./routes/user.js"
 import authrouter from "./routes/auth.js"
 import adminrouter from "./routes/admin.js"
-import *as path from 'path'
+
 
 dotenv.config()
 const app=express();
