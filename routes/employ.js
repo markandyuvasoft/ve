@@ -185,7 +185,7 @@ router.get("/get/:id",checkauth,async(req,res)=>{
 router.get("/get",checkauth,async(req,res)=>{
 
     try{
-      
+
       const user = await User.find({ _id: req.user._id })
 
       if(req.user.isVarified === 0) {
@@ -196,6 +196,7 @@ router.get("/get",checkauth,async(req,res)=>{
     const get= await  Employ.find({postedby:req.user._id}) .populate("postedby", "_id name")
 
     res.status(200).send(get)
+    // res.status(200).send(get)
    }
       }
     catch(err)
