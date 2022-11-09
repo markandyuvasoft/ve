@@ -163,28 +163,28 @@ const storage = multer.diskStorage({
 
 
 //get method by id start.................................
-router.get("/get/:id",checkauth,async(req,res)=>{
+// router.get("/get/:id",checkauth,async(req,res)=>{
 
-  try{
-    const user = await User.find({ _id: req.user._id })
+//   try{
+//     const user = await User.find({ _id: req.user._id })
 
-    if(req.user.isVarified === 0){
+//     if(req.user.isVarified === 0){
 
-      return  res.status(400).send({message:"you block by admin this reason you not get details"})
-    }else{
+//       return  res.status(400).send({message:"you block by admin this reason you not get details"})
+//     }else{
    
-  const _id= req.params.id
+//   const _id= req.params.id
 
-  const getid= await Employ.findById(_id)
+//   const getid= await Employ.findById(_id)
 
-  res.status(200).send(getid)
-}
-}
-  catch(err)
-  {
-      res.status(400).send(err)
-  }
-})
+//   res.status(200).send(getid)
+// }
+// }
+//   catch(err)
+//   {
+//       res.status(400).send(err)
+//   }
+// })
 //get method by id end.....................................
 
 
