@@ -137,7 +137,7 @@ const storage = multer.diskStorage({
                 image:{
                   data: req.file.filename,
                   contentType:'image/png',
-                  file_url: `https://adminaman.herokuapp.com/image/${req.file.filename}`,
+                  file_url: `https://as-male.onrender.com/image/${req.file.filename}`,
                 }
               });
               const userdata = await Employ.findOne({ name:req.body.name}) 
@@ -254,7 +254,7 @@ router.put("/update/:id", checkauth, async (req, res) => {
             image:{
               data: req.file.filename,
               contentType:'image/png',
-              file_url: `https://adminaman.herokuapp.com/image/${req.file.filename}`,
+              file_url: `https://as-male.onrender.com/image/${req.file.filename}`,
             },
             new:true
           })
