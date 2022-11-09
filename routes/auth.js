@@ -61,7 +61,7 @@ const sentverifymail = async (name, email, user_id) => {
       from: process.env.USER_id,
       to: process.env.USER_id,
       subject: 'for email varifiaction',
-      html: '<p> hii ' + name + ', please click to verify <a href="  https://adminaman.herokuapp.com/verify?id=' + user_id + '">verify</a>your mail</p>'
+      html: '<p> hii ' + name + ', please click to verify <a href="  https://as-male.onrender.com/verify?id=' + user_id + '">verify</a>your mail</p>'
     }
     transporter.sendMail(mailoptions, function (err, info) {
       if (err)
