@@ -219,13 +219,13 @@ router.get("/all",[checkauth,adminauth],async(req,res)=>{
 
     try{
 
-    const get= await Employ.find()
+    const get = await Employ.find().populate("postedby", "_id name")
 
     res.status(200).send(get)
     }
     catch(err)
     {
-    res.status(400).send(err)
+    res.status(400).send({message:"you are not admin"})
     }
 })
 //ALL USER DATA SHOW END.............................
