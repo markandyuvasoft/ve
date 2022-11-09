@@ -185,14 +185,22 @@ router.get("/get/:id",checkauth,async(req,res)=>{
 router.get("/get",checkauth,async(req,res)=>{
 
     try{
+      
+      const user = await User.find({ _id: req.user._id })
+
+      if(req.user.isVarified === 0) {
+
+        return  res.status(400).send({message:"you block by admin this reason you not get details"})
+      }else{
 
     const get= await  Employ.find({postedby:req.user._id}) .populate("postedby", "_id name")
 
     res.status(200).send(get)
-    }
+   }
+      }
     catch(err)
     {
-    res.status(400).send(err)
+      res.status(400).send({message:"you are not allow by admin"})
     }
 })
 //get method end......................................
