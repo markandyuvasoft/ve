@@ -138,7 +138,7 @@ userrouter.post("/forget", async (req, res) => {
       res.status(400).send({error:"error please try again"})
   }
 })
-
+// userrouter.get("/reset", async (req, res) => {
 //RESET PASSWORD API START.......................................................
 userrouter.get("/reset", async (req, res) => {
 
