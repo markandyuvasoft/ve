@@ -150,7 +150,7 @@ userrouter.get("/reset", async (req, res) => {
 
       if (tokendata) {
 
-          const password = req.body.password
+          const password = req.query.password
           const newpass = await secure(password)
 
           const userdata = await User.findByIdAndUpdate({ _id: tokendata._id }, { $set: { password: newpass, token: '' } }, { new: true })
