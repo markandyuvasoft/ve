@@ -113,6 +113,11 @@ const storage = multer.diskStorage({
       }else{
         
         try {
+          const user = await User.find({ _id: req.user._id })
+          if(req.user.isVarified === 0){
+
+            return  res.status(400).send({message:"you block by admin this reason you not post details"})
+          }else{
           
           const {  name, age ,city, salary ,date,domain} = req.body;
           const image= req.file
@@ -152,6 +157,7 @@ const storage = multer.diskStorage({
             }
             }
           }
+        }
         } catch (error) {
             res.status(400).send({error:"token is invalid user not found"})
           }
@@ -217,16 +223,23 @@ router.get("/get",checkauth,async(req,res)=>{
 //ALL USER DATA SHOW ONLY ANDMIN AND AUTH START.............................
 router.get("/all",[checkauth,adminauth],async(req,res)=>{
 
-    try{
+  try {
+    const user = await User.find({ _id: req.user._id })
 
-    const get = await Employ.find().populate("postedby", "_id name")
+    if(req.user.isVarified === 0){
 
-    res.status(200).send(get)
-    }
-    catch(err)
-    {
-    res.status(400).send({message:"you are not admin"})
-    }
+      return  res.status(400).send({message:"you block by super-admin this reason you not get details"})
+
+}else{
+
+      const get = await Employ.find().populate("postedby", "_id name")
+
+      res.status(200).send(get)
+  }
+}
+  catch (err) {
+      res.status(400).send({message:"user not found"})
+  }
 })
 //ALL USER DATA SHOW END.............................
 
