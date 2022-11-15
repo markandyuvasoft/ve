@@ -187,6 +187,33 @@ adminrouter.put("/unblock/:id", [checkauth, adminauth], async (req, res) => {
 })
 
 
+//REGISTER ADMIN DETAILS FIND HELP OF TOKEN
+adminrouter.get('/adminProfile', [checkauth,adminauth], async (req, res) => {
+
+  try {
+    const details = await User.find({ _id: req.user._id })
+    if (details) {
+
+const data={
+      "_id":req.user._id,
+      "name": req.user.name,"address":req.user.address,
+      "email":req.user.email,"phone": req.user.phone,
+      "gender": req.user.gender,"age": req.user.age,
+}
+      res.status(200).send({ success: "Admin Details....", data })
+    }
+    else {
+      res.status(400).send({ error: "not found admin detail" })
+    }
+  }
+  catch (err) {
+    res.status(400).send({ error: "user not found please try again" })
+  }
+});
+
+
+
+
 //SEARCH USER START.................
 adminrouter.get("/search", async (req, res, next) => {
 
