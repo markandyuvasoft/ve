@@ -212,6 +212,28 @@ const data={
 });
 
 
+//UPDATE ADMIN DETAILS................................
+adminrouter.put("/updateAdmin/:id",[checkauth,adminauth],async(req,res)=>{
+
+  try {
+    const _id = req.params.id
+
+    const getid = await User.findByIdAndUpdate(_id, req.body, {
+
+
+      new: true
+    })
+   getid.password=undefined, getid.cpassword=undefined
+   
+// console.log(getid);
+    res.status(200).send({ success: "Updated Admin Detail....", getid })
+    
+  } catch (error) {
+    res.status(400).send({ error: "user not found please try again" })
+  }
+})
+
+
 
 
 //SEARCH USER START.................
