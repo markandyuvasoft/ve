@@ -225,7 +225,6 @@ adminrouter.put("/updateAdmin/:id",[checkauth,adminauth],async(req,res)=>{
     })
    getid.password=undefined, getid.cpassword=undefined
    
-// console.log(getid);
     res.status(200).send({ success: "Updated Admin Detail....", getid })
     
   } catch (error) {
