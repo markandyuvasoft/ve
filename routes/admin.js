@@ -226,6 +226,7 @@ adminrouter.put("/updateAdmin/:id",[checkauth,adminauth],async(req,res)=>{
    getid.password=undefined, getid.cpassword=undefined
    
     res.status(200).send({ success: "Updated Admin Detail....", getid })
+    // res.status(200).send({ success: "Updated Admin Detail....", getid })
     
   } catch (error) {
     res.status(400).send({ error: "user not found please try again" })
