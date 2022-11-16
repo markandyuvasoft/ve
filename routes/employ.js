@@ -103,7 +103,7 @@ const storage = multer.diskStorage({
   }).single('image')
   
 //post method start...........................................................
-  router.get('/image', express.static('upload/images'));
+  router.use('/image', express.static('upload/images'));
   router.post("/post",checkauth ,async (req, res) => {
     upload(req,res,async (err)=>{
   
@@ -143,6 +143,7 @@ const storage = multer.diskStorage({
                   data: req.file.filename,
                   contentType:'image/png',
                   file_url: `https://as-male.onrender.com/image/${req.file.filename}`,
+                
                 }
               });
               const userdata = await Employ.findOne({ name:req.body.name}) 

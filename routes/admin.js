@@ -159,7 +159,6 @@ adminrouter.put("/block/:id", [checkauth, adminauth], async (req, res) => {
   }
 })
 
-
 //UNBLOCK THE USER START.............
 adminrouter.put("/unblock/:id", [checkauth, adminauth], async (req, res) => {
 
@@ -218,14 +217,14 @@ adminrouter.put("/updateAdmin/:id",[checkauth,adminauth],async(req,res)=>{
   try {
     const _id = req.params.id
 
-    const getid = await User.findByIdAndUpdate(_id, req.body, {
+    const detail = await User.findByIdAndUpdate(_id, req.body, {
 
 
       new: true
     })
-   getid.password=undefined, getid.cpassword=undefined
+   detail.password=undefined, detail.cpassword=undefined
    
-    res.status(200).send({ success: "Updated Admin Detail....", getid })
+    res.status(200).send({ success: "Updated Admin Detail....", detail })
     // res.status(200).send({ success: "Updated Admin Detail....", getid })
     
   } catch (error) {
@@ -234,7 +233,66 @@ adminrouter.put("/updateAdmin/:id",[checkauth,adminauth],async(req,res)=>{
 })
 
 
+//ADMIN MADE THE USER TO ADMIN............................................
+adminrouter.put("/admin/made/:id", [checkauth, adminauth], async (req, res) => {
 
+  const _id = req.params.id
+
+  const isAdmin = req.body.isAdmin
+
+  const getid = await User.findByIdAndUpdate(_id, req.body.isAdmin, {
+    new: true
+  })
+  const data = {
+    isAdmin: false
+  }
+
+  if (getid.isAdmin == false) {
+
+    const da1ta = {
+      isAdmin: true
+    }
+    const getid1 = await User.findByIdAndUpdate(getid._id, da1ta)
+
+    res.status(400).send({ success: "you have made this user an Admin" })
+  }
+  else {
+
+    res.status(400).send({ message: "you have already made this user an Admin" })
+
+  }
+})
+
+
+//ADMIN MADE THE ADMIN TO user..............................................
+adminrouter.put("/admin/user/:id",[checkauth,adminauth],async(req,res)=>{
+
+  const _id= req.params.id
+
+  const isAdmin= req.body.isAdmin
+
+  const getid= await User.findByIdAndUpdate(_id,req.body.isAdmin,{
+    new:true
+  })
+  const data= {
+    isAdmin:true
+  }
+
+if(getid.isAdmin==true){
+
+    const da1ta= {
+      isAdmin:false
+    }
+    const getid1= await User.findByIdAndUpdate(getid._id,da1ta)
+
+    res.status(400).send({success:"you have successfully made this admin a user"})
+  }
+  else{
+
+res.status(400).send({message:"you have already made this admin a user"})
+
+}
+})
 
 //SEARCH USER START.................
 adminrouter.get("/search", async (req, res, next) => {
