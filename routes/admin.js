@@ -295,13 +295,15 @@ res.status(400).send({message:"you have already made this admin a user"})
 })
 
 //SEARCH USER START.................
-adminrouter.get("/search", async (req, res, next) => {
+adminrouter.get("/search",checkauth, async (req, res, next) => {
 
   try {
 
     const { page = 1, limit = 150, sort, search = "" } = req.query;
 
-    const data = await Employ.find({ name: { $regex: search, $options: "i" } })
+    const user = await User.find({ _id: req.user._id })
+
+    const data = await Employ.find({ name: { $regex: search, $options: "i" } }).populate("postedby", "name")
 
       .sort({ [sort]: 1 })        // sorting name, id ,etc
 

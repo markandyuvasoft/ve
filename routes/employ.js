@@ -207,7 +207,7 @@ router.get("/get",checkauth,async(req,res)=>{
         return  res.status(400).send({message:"you block by admin this reason you not get details"})
       }else{
 
-    const get= await  Employ.find({postedby:req.user._id}) .populate("postedby", "_id name")
+    const get= await  Employ.find({postedby:req.user._id}) .populate("postedby", "name")
 
     res.status(200).send(get)
     // res.status(200).send(get)
