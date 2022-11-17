@@ -254,7 +254,7 @@ adminrouter.put("/admin/made/:id", [checkauth, adminauth], async (req, res) => {
     }
     const getid1 = await User.findByIdAndUpdate(getid._id, da1ta)
 
-    res.status(400).send({ success: "you have made this user an Admin" })
+    res.status(200).send({ success: "you have made this user an Admin" })
   }
   else {
 
@@ -285,7 +285,7 @@ if(getid.isAdmin==true){
     }
     const getid1= await User.findByIdAndUpdate(getid._id,da1ta)
 
-    res.status(400).send({success:"you have successfully made this admin a user"})
+    res.status(200).send({success:"you have successfully made this admin a user"})
   }
   else{
 
