@@ -10,6 +10,8 @@ import moment from 'moment'
 import dotenv from 'dotenv'
 
 dotenv.config()
+// const authrouter = express.Router()
+
 const authrouter = express.Router()
 
 //BCRYPT PASSWORD USE THIS METHOD START
